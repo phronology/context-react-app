@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {Table, Button} from  'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsDown , faThumbsUp , faImage , faMoneyCheckAlt, faSearchDollar } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsDown, faThumbsUp, faImage, faMoneyCheckAlt, faSearchDollar } from '@fortawesome/free-solid-svg-icons'
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+
 
 class App extends Component {
 
@@ -121,7 +126,7 @@ class App extends Component {
     }
 }
  
-export default App;
+export default withAuthenticator(App);
 
 
 

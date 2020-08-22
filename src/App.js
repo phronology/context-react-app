@@ -7,31 +7,7 @@ class App extends Component {
 
     state = { 
         isLoading :false,
-        invoices :  [
-            // {
-            //     "id" : "100",
-            //     "Vendor":"Hankook",
-            //     "Amount" : "$18,000",
-            //     "invoice" : "1123",
-            //     "Date" : "08/21/2019"
-            // },
-
-            // {
-            //     "id" : "200",
-            //     "Vendor":"Hankook",
-            //     "Amount" : "$18,000",
-            //     "invoice" : "1123",
-            //     "Date" : "08/21/2019"
-            // },
-
-            // {
-            //     "id" : "300",
-            //     "Vendor":"Hankook",
-            //     "Amount" : "$18,000",
-            //     "invoice" : "1123",
-            //     "Date" : "08/21/2019"
-            // }
-        ]
+        invoices :  []
      }
 
     remove(id){
@@ -66,15 +42,30 @@ class App extends Component {
         let invoices = 
         allinvoices.map( invoice => 
             <tr key={invoice.email}>
-                <td>{invoice.reference}</td>
+                <td>{invoice.email}</td>
                 <td>{invoice.phone}</td>
                 <td>{invoice.environment}</td>
                 <td>{invoice.dob}</td>
-                <td><Button className="btn btn-lg btn-success" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faThumbsUp} /> OK </Button></td>
+                <td>{invoice.reference}</td>
+                <td>{invoice.name}</td>
+                <td>{invoice.dob}</td>
+                <td>{invoice.phone}</td>
+                <td>{invoice.address}</td>
+                <td>{invoice.send_choice}</td>
+                <td>{invoice.user}</td>
+                <td>{invoice.scope}</td>
+                <td>{invoice.mandatory}</td>
+                <td>{invoice.started}</td>
+                <td>{invoice.application_status}</td>
+                <td>{invoice.link_expiry}</td>
+                <td>{invoice.created}</td>
+                <td>{invoice.completed}</td>
+                <td>{invoice.result}</td>
+                {/* <td><Button className="btn btn-lg btn-success" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faThumbsUp} /> OK </Button></td>
                 <td><Button className="btn btn-lg btn-danger" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faThumbsDown} /> NOK </Button></td>
                 <td><Button className="btn btn-lg btn-info" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faMoneyCheckAlt} /> 50% </Button></td>
                 <td><Button className="btn btn-lg btn-warning" onClick={ () => this.remove(invoice.email)} ><FontAwesomeIcon icon={faSearchDollar} /> ?? </Button></td>
-                <td><Button className="btn btn-lg btn-info" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faImage} /> Image </Button></td>
+                <td><Button className="btn btn-lg btn-info" onClick={ () => this.remove(invoice.email)} > <FontAwesomeIcon icon={faImage} /> Image </Button></td> */}
             </tr>
         )
 
@@ -93,12 +84,25 @@ class App extends Component {
                             <Table dark responsive striped bordered hover>
                                 <thead>
                                     <tr>
-                                        <th >Vendor</th>
-                                        <th>Amount</th>
-                                        <th>Invoice #</th>
-                                        <th>Date</th>
-                                        <th colSpan="4">Actions</th>
-                                        <th>Image</th>
+                                        <th>Email</th>
+                                        <th>Reference</th>
+                                        <th>Environment</th>
+                                        <th>Name</th>
+                                        <th>DOB</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th>Send Choice</th>
+                                        <th>Requester</th>
+                                        <th>Scope</th>
+                                        <th>Mandatory</th>
+                                        <th>Started</th>
+                                        <th>Application Status</th>
+                                        <th>Link Expiry</th>
+                                        <th>Created</th>
+                                        <th>Completed</th>
+                                        <th>Result</th>
+                                        {/* <th colSpan="4">Actions</th> */}
+                                        {/* <th>Image</th> */}
                                     </tr>
                                 </thead>
                             

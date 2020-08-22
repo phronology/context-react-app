@@ -43,16 +43,14 @@ class App extends Component {
         allinvoices.map( invoice => 
             <tr key={invoice.email}>
                 <td>{invoice.email}</td>
-                <td>{invoice.phone}</td>
-                <td>{invoice.environment}</td>
-                <td>{invoice.dob}</td>
                 <td>{invoice.reference}</td>
+                <td>{invoice.environment}</td>
                 <td>{invoice.name}</td>
                 <td>{invoice.dob}</td>
                 <td>{invoice.phone}</td>
-                <td>{invoice.address}</td>
                 <td>{invoice.send_choice}</td>
                 <td>{invoice.user}</td>
+                {/* <td>{invoice.address}</td> */}
                 <td>{invoice.scope}</td>
                 <td>{invoice.mandatory}</td>
                 <td>{invoice.started}</td>
@@ -90,7 +88,7 @@ class App extends Component {
                                         <th>Name</th>
                                         <th>DOB</th>
                                         <th>Phone</th>
-                                        <th>Address</th>
+                                        {/* <th>Address</th> */}
                                         <th>Send Choice</th>
                                         <th>Requester</th>
                                         <th>Scope</th>

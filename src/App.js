@@ -26,6 +26,14 @@ class App extends Component {
         this.setState({ invoices: body, isLoading: false });
     }
     
+    // Push updated row info to DynamoDB, use ref or email to lookup row in DB and update
+    // handleChange = (e) => {
+    //     let projects = this.state.projects;
+    //     // manipulate your project here
+    //     this.setState({
+    //        projects: projects
+    //     });
+    //  }
       
 
     render() { 
@@ -42,6 +50,14 @@ class App extends Component {
         let invoices = 
         allinvoices.map( invoice => 
             <tr key={invoice.email}>
+                <td>
+                <FormControl
+                        type="checkbox"
+                        id="selected"
+                        // value={project.projectName}
+                        // onChange={e => this.handleChange(e)}
+                    />
+                </td>
                 <td>{invoice.email}</td>
                 <td>{invoice.reference}</td>
                 <td>{invoice.environment}</td>
@@ -82,6 +98,7 @@ class App extends Component {
                             <Table dark responsive striped bordered hover>
                                 <thead>
                                     <tr>
+                                        <th>Manual Approval</th>
                                         <th>Email</th>
                                         <th>Reference</th>
                                         <th>Environment</th>

@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"contextwebapp7345cba8": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

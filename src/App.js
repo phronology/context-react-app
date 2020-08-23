@@ -59,6 +59,7 @@ class App extends Component {
                     />
                 </td>
                 <td>{invoice.email}</td>
+                <td>{invoice.email}</td>
                 <td>{invoice.reference}</td>
                 <td>{invoice.environment}</td>
                 <td>{invoice.name}</td>

@@ -72,7 +72,7 @@ class App extends Component {
             })
         };
         console.log(requestOptions)
-        fetch('https://mgbpcdtxkb.execute-api.eu-west-2.amazonaws.com/dev', requestOptions)
+        fetch('https://zr36kul1lf.execute-api.eu-west-2.amazonaws.com/prod/api-dev', requestOptions)
     }
     
 

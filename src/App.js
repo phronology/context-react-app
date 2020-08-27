@@ -31,7 +31,7 @@ class App extends Component {
 
 
     getPeople() {
-        fetch("https://mgbpcdtxkb.execute-api.eu-west-2.amazonaws.com/dev")
+        fetch("https://zr36kul1lf.execute-api.eu-west-2.amazonaws.com/prod/api-dev")
         .then(response => response.json())
         .then(response => this.setState({ invoices: response }))
         .catch(error => console.log(error));

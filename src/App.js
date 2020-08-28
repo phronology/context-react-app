@@ -31,7 +31,7 @@ class App extends Component {
 
 
     getPeople() {
-        fetch("https://zr36kul1lf.execute-api.eu-west-2.amazonaws.com/prod/api-dev")
+        fetch("https://eku4es8cl8.execute-api.eu-west-2.amazonaws.com/prod/")
         .then(response => response.json())
         .then(response => this.setState({ invoices: response }))
         .catch(error => console.log(error));
@@ -72,7 +72,7 @@ class App extends Component {
             })
         };
         console.log(requestOptions)
-        fetch('https://zr36kul1lf.execute-api.eu-west-2.amazonaws.com/prod/api-dev', requestOptions)
+        fetch('https://qggck3mayk.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
     }
     
 

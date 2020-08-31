@@ -31,7 +31,7 @@ class App extends Component {
 
 
     getPeople() {
-        fetch("https://eku4es8cl8.execute-api.eu-west-2.amazonaws.com/prod/")
+        fetch("https://c1sm8r7pt0.execute-api.eu-west-2.amazonaws.com/prod/")
         .then(response => response.json())
         .then(response => this.setState({ invoices: response }))
         .catch(error => console.log(error));
@@ -56,10 +56,9 @@ class App extends Component {
           })
 
         
-     
+        // Headers + CORS are handled back lambda proxy
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "operation": "update",
                 "tableName": "context-checks-applications",
@@ -72,7 +71,7 @@ class App extends Component {
             })
         };
         console.log(requestOptions)
-        fetch('https://qggck3mayk.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
+        fetch('https://c1sm8r7pt0.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
     }
     
 
@@ -115,6 +114,26 @@ class App extends Component {
                         />
                     </form>
                 </td>
+                <td>
+                    <form>
+                        <input
+                        type="checkbox"
+                        id={invoice.email} checked={invoice.active} name="active" 
+                        // value={invoice.manual_approval}
+                        onChange={this.handleInputChange}
+                        />
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <input
+                        type="checkbox"
+                        id={invoice.email} checked={invoice.report_generated} name="report_generated" 
+                        // value={invoice.manual_approval}
+                        onChange={this.handleInputChange}
+                        />
+                    </form>
+                </td>
                 <td>{invoice.email}</td>
                 <td>{invoice.reference}</td>
                 <td>{invoice.environment}</td>
@@ -148,6 +167,8 @@ class App extends Component {
                             <Table dark responsive striped bordered hover>
                                 <thead>
                                     <tr>
+                                        <th>Active</th>
+                                        <th>Report Generated</th>
                                         <th>Manual Approval</th>
                                         <th>Bolt-on Checks</th>
                                         <th>Email</th>
@@ -172,7 +193,7 @@ class App extends Component {
                                     </tr>
                                 </thead>
                             <tbody>
-                                {this.state.invoices.length === 0 ? <td colSpan="9">All caught up!</td> : invoices}
+                                {this.state.invoices.length === 0 ? <td colSpan="9">Loading...</td> : invoices}
                             </tbody>
                             </Table>
                         </div>

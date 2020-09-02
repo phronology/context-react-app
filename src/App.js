@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Table, Button} from  'reactstrap';
+import {Table, Form} from 'react-bootstrap'
+// import { Table, Button } from 'reactstrap';
+import './App.css';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faThumbsDown , faThumbsUp , faImage , faMoneyCheckAlt, faSearchDollar } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,11 +10,13 @@ class App extends Component {
         super(props);
         this.state = {
             isLoading :false,
-            invoices: []            
+            invoices: [],
+            noteText : 'This is where some notes will go.'
         }
         console.log(this.state.invoices)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.deletePerson = this.deletePerson.bind(this);
+        this.handleTextChange = this.handleTextChange.bind(this)
     }
     
 
@@ -31,7 +35,7 @@ class App extends Component {
 
 
     getPeople() {
-        fetch("https://c1sm8r7pt0.execute-api.eu-west-2.amazonaws.com/prod/")
+        fetch("https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/")
         .then(response => response.json())
         .then(response => this.setState({ invoices: response }))
         .catch(error => console.log(error));
@@ -45,9 +49,7 @@ class App extends Component {
         const n = target.name
         console.log(n)
         const copy = this.state.invoices
-        const found = copy.findIndex(element => element.email == email_addr)
-       
-        
+        const found = copy.findIndex(element => element.email == email_addr);
 
         this.setState(prevState => {
             let inv = Object.assign({}, prevState.invoices);  
@@ -71,8 +73,19 @@ class App extends Component {
             })
         };
         console.log(requestOptions)
-        fetch('https://c1sm8r7pt0.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
+        fetch('https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
     }
+
+
+// todo UPDATE THE INPUT TEXT ///////
+    handleTextChange(event) {
+        const textTarget = event.target
+        const email_addrText = textTarget.id
+        const nText = textTarget.textArea
+        this.setState({ noteText: event.target.value });
+        // console.log(email_addrText)
+        // console.log(nText)
+        };
     
 
     deletePerson(email) {
@@ -92,9 +105,21 @@ class App extends Component {
             return(<div>Loading...</div>);
 
         let invoices = 
-        allinvoices.map( invoice => 
-            <tr key={invoice.email}>
-                <td>
+            allinvoices.map(invoice => 
+            <tr  key={invoice.email}>
+                <td >
+                    <Form className="w" >
+                        <Form.Group  controlId="exampleForm.ControlTextarea1" >
+                                <Form.Control
+                                    as="textarea"
+                                    // value={this.state.noteText}
+                                    onChange={this.handleTextChange} />
+                        </Form.Group>
+                    </Form>
+                    {/* <Button outline color="primary" size="sm"> Save </Button>
+                    <Button outline color="secondary" size="sm"> Edit </Button> */}
+                </td>
+                <td className="checkboxUnit">
                     <form>
                         <input
                         type="checkbox"
@@ -104,7 +129,7 @@ class App extends Component {
                         />
                     </form>
                 </td>
-                <td>
+                <td className="checkboxUnit">
                     <form>
                         <input
                         type="checkbox"
@@ -114,7 +139,7 @@ class App extends Component {
                         />
                     </form>
                 </td>
-                <td>
+                <td className="checkboxUnit">
                     <form>
                         <input
                         type="checkbox"
@@ -124,7 +149,7 @@ class App extends Component {
                         />
                     </form>
                 </td>
-                <td>
+                <td className="checkboxUnit">
                     <form>
                         <input
                         type="checkbox"
@@ -142,7 +167,6 @@ class App extends Component {
                 <td>{invoice.phone}</td>
                 <td>{invoice.send_choice}</td>
                 <td>{invoice.user}</td>
-                {/* <td>{invoice.address}</td> */}
                 <td>{invoice.scope}</td>
                 <td>{invoice.mandatory}</td>
                 <td>{invoice.started}</td>
@@ -152,53 +176,58 @@ class App extends Component {
                 <td>{invoice.completed}</td>
                 <td>{invoice.result}</td>
                 {/* <Button className="btn btn-sm btn-success" onClick={this.deletePerson(invoice.email)} > <FontAwesomeIcon icon={faThumbsUp} /> Save </Button> */}
-            </tr>
+                </tr>
         )
 
         return (
-            <div className="container border-secondary rouded center">
-                <div className="row">
-                        <div className="col-12">
+            <div class="container-fluid">
+            <div >
+                <div> 
+                        <div >
                             <h4>Application Tracker</h4>
                         </div>
                 </div>
-                <div className="row">
-                        <div className=".col-xs-12 center text-center">
-                            <Table dark responsive striped bordered hover>
+            </div>
+                <div >
+                        <div >
+                        <div>
+                            <Table className="react-table"  bordered hover responsive>
                                 <thead>
-                                    <tr>
-                                        <th>Active</th>
-                                        <th>Report Generated</th>
-                                        <th>Manual Approval</th>
-                                        <th>Bolt-on Checks</th>
-                                        <th>Email</th>
-                                        <th>Reference</th>
-                                        <th>Environment</th>
-                                        <th>Name</th>
-                                        <th>DOB</th>
-                                        <th>Phone</th>
+                                    <tr >
+                                        <th >Notes</th>
+                                        <th >Active</th>
+                                        <th >Report Generated</th>
+                                        <th >Manual Approval</th>
+                                        <th >Bolt-on Checks</th>
+                                        <th >Email</th>
+                                        <th >Reference</th>
+                                        <th >Environment</th>
+                                        <th >Name</th>
+                                        <th >DOB</th>
+                                        <th >Phone</th>
                                         {/* <th>Address</th> */}
-                                        <th>Send Choice</th>
-                                        <th>Requester</th>
-                                        <th>Scope</th>
-                                        <th>Mandatory</th>
-                                        <th>Started</th>
-                                        <th>Application Status</th>
-                                        <th>Link Expiry</th>
-                                        <th>Created</th>
-                                        <th>Completed</th>
-                                        <th>Result</th>
+                                        <th >Send Choice</th>
+                                        <th >Requester</th>
+                                        <th >Scope</th>
+                                        <th >Mandatory</th>
+                                        <th >Started</th>
+                                        <th >Application Status</th>
+                                        <th >Link Expiry</th>
+                                        <th >Created</th>
+                                        <th >Completed</th>
+                                        <th >Result</th>
                                         {/* <th colSpan="4">Actions</th> */}
                                         {/* <th>Image</th> */}
                                     </tr>
                                 </thead>
                             <tbody>
-                                {this.state.invoices.length === 0 ? <td colSpan="9">Loading...</td> : invoices}
-                            </tbody>
-                            </Table>
+                                {this.state.invoices.length === 0 ? <td >Loading...</td> : invoices}
+                                </tbody>
+                                </Table>
+                            </div>
                         </div>
                 </div>
-            </div>
+                </div>
         );
     }
 }

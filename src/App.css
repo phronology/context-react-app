@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.checkboxUnit{
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+
+.w{
+  width: 250px;
+}

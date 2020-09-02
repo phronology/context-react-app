@@ -11,7 +11,7 @@ class App extends Component {
         this.state = {
             isLoading :false,
             invoices: [],
-            noteText : 'This is where some notes will go.'
+            // noteText : 'This is where some notes will go.'
         }
         console.log(this.state.invoices)
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -43,13 +43,15 @@ class App extends Component {
     
     
     handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const email_addr = target.id
-        const n = target.name
+        let target = event.target;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+        let email_addr = target.id
+        let n = target.name
         console.log(n)
-        const copy = this.state.invoices
-        const found = copy.findIndex(element => element.email == email_addr);
+        let copy = this.state.invoices
+        let found = copy.findIndex(element => element.email == email_addr);
+        // console.log(found)
+
 
         this.setState(prevState => {
             let inv = Object.assign({}, prevState.invoices);  
@@ -59,7 +61,7 @@ class App extends Component {
 
         
         // Headers + CORS are handled back lambda proxy
-        const requestOptions = {
+        let requestOptions = {
             method: 'POST',
             body: JSON.stringify({
                 "operation": "update",
@@ -78,13 +80,47 @@ class App extends Component {
 
 
 // todo UPDATE THE INPUT TEXT ///////
+
     handleTextChange(event) {
-        const textTarget = event.target
+        let textTarget = event.target
         const email_addrText = textTarget.id
         const nText = textTarget.textArea
-        this.setState({ noteText: event.target.value });
+        // this.setState({ invoices.admin_notes : event.target.value });
         // console.log(email_addrText)
         // console.log(nText)
+
+        let target = event.target;
+        let value = target.value;
+        let email_addr = target.id
+        let n = target.name
+        console.log(n)
+        let copy = this.state.invoices
+        let found = copy.findIndex(element => element.email == email_addr);
+        console.log(found)
+
+        this.setState(prevState => {
+            let inv = Object.assign({}, prevState.invoices);  
+            inv[found][n] = value;              // manual_approval needs changing to a variable.. a key?                       
+            return { inv };                                 
+        })
+        
+        // Headers + CORS are handled back lambda proxy
+        let requestOptions = {
+            method: 'POST',
+            body: JSON.stringify({
+                "operation": "update",
+                "tableName": "context-checks-applications",
+                "payload": {
+                    "Item": {
+                        "email": email_addr, // neccesarry for DB PK
+                        [n] : value
+                    }
+                }
+            })
+        };
+        console.log(requestOptions)
+        fetch('https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/', requestOptions)
+
         };
     
 
@@ -112,7 +148,9 @@ class App extends Component {
                         <Form.Group  controlId="exampleForm.ControlTextarea1" >
                                 <Form.Control
                                     as="textarea"
-                                    // value={this.state.noteText}
+                                    id={invoice.email}
+                                    value={invoice.admin_notes}
+                                    name="admin_notes"
                                     onChange={this.handleTextChange} />
                         </Form.Group>
                     </Form>

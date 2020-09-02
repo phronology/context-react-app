@@ -196,7 +196,9 @@ class App extends Component {
                         onChange={this.handleInputChange}
                         />
                     </form>
-                </td>
+                    </td>
+                    <td>{invoice.invoice_number}</td>
+
                 <td>{invoice.email}</td>
                 <td>{invoice.reference}</td>
                 <td>{invoice.environment}</td>
@@ -237,6 +239,7 @@ class App extends Component {
                                         <th >Report Generated</th>
                                         <th >Manual Approval</th>
                                         <th >Bolt-on Checks</th>
+                                        <th>Invoice Number</th>
                                         <th >Email</th>
                                         <th >Reference</th>
                                         <th >Environment</th>

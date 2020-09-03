@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"reactcontextauth15c6406d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

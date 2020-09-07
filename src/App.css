@@ -37,13 +37,41 @@
   }
 }
 
-.checkboxUnit{
+.checkboxUnit {
   text-align: center;
   vertical-align: middle;
 }
 
-
-
-.w{
+.w {
   width: 250px;
+}
+
+.active-link {
+  color: #61dafb;
+}
+
+.trackerTitle {
+  float: left;
+  padding-top: 2rem;
+}
+
+.createTitle {
+  float: left;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.centerForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formLabel {
+  float: left;
+}
+
+.btn-primary {
+  float: left;
 }

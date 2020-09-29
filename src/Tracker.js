@@ -28,7 +28,9 @@ class Tracker extends Component {
   }
 
   getPeople() {
-    fetch("https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/")
+    fetch(
+      "https://lp4o2vnkx7.execute-api.eu-west-2.amazonaws.com/prod/adminScanDb/"
+    )
       .then((response) => response.json())
       .then((response) => this.setState({ invoices: response }))
       .catch((error) => console.log(error));
@@ -66,7 +68,7 @@ class Tracker extends Component {
     };
     console.log(requestOptions);
     fetch(
-      "https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/",
+      "https://lp4o2vnkx7.execute-api.eu-west-2.amazonaws.com/prod/adminUpdateDb/",
       requestOptions
     );
   }
@@ -107,7 +109,7 @@ class Tracker extends Component {
     };
     console.log(requestOptions);
     fetch(
-      "https://5vm2bafsvg.execute-api.eu-west-2.amazonaws.com/prod/",
+      "https://lp4o2vnkx7.execute-api.eu-west-2.amazonaws.com/prod/adminUpdateDb/",
       requestOptions
     );
   }
@@ -146,8 +148,8 @@ class Tracker extends Component {
             <input
               type="checkbox"
               id={invoice.email}
-              checked={invoice.manual_approval}
-              name="manual_approval"
+              checked={invoice.active}
+              name="active"
               onChange={this.handleInputChange}
             />
           </form>
@@ -168,8 +170,8 @@ class Tracker extends Component {
             <input
               type="checkbox"
               id={invoice.email}
-              checked={invoice.active}
-              name="active"
+              checked={invoice.manual_approval}
+              name="manual_approval"
               onChange={this.handleInputChange}
             />
           </form>
@@ -189,13 +191,14 @@ class Tracker extends Component {
         <td>{invoice.invoice_number}</td>
 
         <td>{invoice.email}</td>
-        <td>{invoice.reference}</td>
+        <td>{invoice.reference_id}</td>
         <td>{invoice.environment}</td>
+        <td>{invoice.company}</td>
         <td>{invoice.name}</td>
         <td>{invoice.dob}</td>
         <td>{invoice.phone}</td>
         <td>{invoice.send_choice}</td>
-        <td>{invoice.user}</td>
+        <td>{invoice.requestor}</td>
         <td>{invoice.scope}</td>
         <td>{invoice.mandatory}</td>
         <td>{invoice.started}</td>
@@ -218,13 +221,14 @@ class Tracker extends Component {
             <tr>
               <th>Notes</th>
               <th>Active</th>
-              <th>Report Generated</th>
-              <th>Manual Approval</th>
               <th>Bolt-on Checks</th>
+              <th>Manual Approval</th>
+              <th>Report Generated</th>
               <th>Invoice Number</th>
               <th>Email</th>
               <th>Reference</th>
               <th>Environment</th>
+              <th>Company</th>
               <th>Name</th>
               <th>DOB</th>
               <th>Phone</th>

@@ -4,11 +4,34 @@ import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { Route } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Formik, ErrorMessage } from "formik";
+import { Auth } from "aws-amplify";
 
 class CreateApplication extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      values: "",
+      loggedUser: "",
+    };
     // this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  getAuth = async () => {
+    try {
+      let user = await Auth.currentAuthenticatedUser();
+      const { attributes } = user;
+      return attributes.email;
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+      console.log(err.data);
+      console.log(err.status);
+      console.log(err.headers);
+    }
+  };
+
+  componentDidMount() {
+    this.getAuth().then((value) => this.setState({ loggedUser: value }));
   }
 
   render() {
@@ -30,6 +53,10 @@ class CreateApplication extends Component {
             onSubmit={(values, { setSubmitting, resetForm }) => {
               // When button submits form and form is in the process of submitting, submit button is disabled
               setSubmitting(true);
+              this.setState({
+                values: this.state.values,
+              });
+              values.requestor = this.state.loggedUser;
 
               // Send values object to AWS Lambda
               let requestOptions = {
@@ -42,13 +69,13 @@ class CreateApplication extends Component {
               };
               console.log(requestOptions);
               fetch(
-                "https://vfkxe8jtml.execute-api.eu-west-2.amazonaws.com/prod/",
+                "https://lp4o2vnkx7.execute-api.eu-west-2.amazonaws.com/prod/createApplicant/",
                 requestOptions
               );
 
               //   Simulate submitting to database, shows us values submitted, resets form
               setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
+                // alert(JSON.stringify(values, null, 2));
                 resetForm();
                 setSubmitting(false);
               }, 500);
@@ -87,9 +114,16 @@ class CreateApplication extends Component {
                     <option value="" disabled selected hidden required>
                       Choose a company
                     </option>
-                    <option value="digiblu">Digiblu</option>
-                    <option value="purple">Purple</option>
-                    <option value="context">Context</option>
+                    <option value="sandbox">Sandbox</option>
+                    <option value="digiblu" disabled="true">
+                      Digiblu
+                    </option>
+                    <option value="purple" disabled="true">
+                      Purple
+                    </option>
+                    <option value="context" disabled="true">
+                      Context
+                    </option>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group id="InvoiceSelect">
